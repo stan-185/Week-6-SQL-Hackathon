@@ -1,0 +1,39 @@
+create table country (
+  code text primary key,
+  name text not null
+);
+
+create table years (
+  code text primary key,
+  year int not null
+);
+  
+create table country_year (
+  id serial primary key,
+  country_code text not null,
+  year_code text not null,
+  foreign key (country_code) references country(code),
+  foreign key (year_code) references years(code)
+);
+create table electricity_access (
+  country_year_id int not null,
+  electricity_urban numeric,
+  electricity_rural numeric,
+  electricity_total numeric,
+  foreign key (country_year_id) references country_year(id)
+);
+
+create table energy_output (
+  country_year_id int not null,
+  renewable_output_gwh numeric,
+  total_output_gwh numeric,
+  foreign key (country_year_id) references country_year(id)
+);
+
+create table energy_consumption (
+  country_year_id int not null,
+  renewable_consumption_tj numeric,
+  total_consumption_gwh numeric,
+  foreign key (country_year_id) references country_year(id)
+ );
+ 
